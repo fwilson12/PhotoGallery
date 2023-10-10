@@ -1,0 +1,19 @@
+Display
+
+<Display>:
+    BoxLayout:
+        orientation: 'vertical'
+        Label:
+            text:
+                'Important Images'
+            size_hint: 1, .3
+        Image:
+            size_hint: 1, 5
+            id: img
+            source: root.displayimage()
+        BoxLayout:
+            orientation: 'horizontal'
+            Button:
+                text: '<<<'
+            Button:
+                text: '>>>'
