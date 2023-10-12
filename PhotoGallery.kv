@@ -15,5 +15,41 @@ Display
             orientation: 'horizontal'
             Button:
                 text: '<<<'
+                on_release: root.back()
             Button:
                 text: '>>>'
+                on_release: root.advance()
+
+
+
+<Filters>:
+    BoxLayout:
+        orientation: 'vertical'
+        GridLayout:
+            rows: 4
+            columns: 2
+            size_hint: 1, .8
+            TextInput:
+                text_hint: 'enter image name'
+            Button:
+                text: 'load image'
+
+            Button:
+                text: 'black & white'
+
+            Button:
+                text: 'inverse'
+
+            Button:
+                text: 'line drawing'
+
+            Button:
+                text: 'pointillism'
+
+            Button:
+                text: 'sepia'
+
+            Button:
+                text: 'pixelate'
+        Image:
+            size_hint: 1, 1.3
