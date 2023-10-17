@@ -1,4 +1,4 @@
-Display
+Filters
 
 <Display>:
     BoxLayout:
@@ -31,25 +31,34 @@ Display
             size_hint: 1, .8
             TextInput:
                 text_hint: 'enter image name'
+                id: img
             Button:
                 text: 'load image'
+                on_release: root.load(img.text)
 
             Button:
                 text: 'black & white'
+                on_release: root.black_and_white(big_image.source)
 
             Button:
-                text: 'inverse'
+                text: 'invert'
+                on_release: root.invert(big_image.source)
 
             Button:
                 text: 'line drawing'
+                on_release: root.lines(big_image.source)
 
             Button:
                 text: 'pointillism'
+                on_release: root.pointillism(big_image.source)
 
             Button:
                 text: 'sepia'
+                on_release: root.sepia(big_image.source)
 
             Button:
                 text: 'pixelate'
         Image:
             size_hint: 1, 1.3
+            id: big_image
+            source: ''

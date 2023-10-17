@@ -34,7 +34,16 @@ class Display(Screen):
 
 
 class Filters(Screen):
-    def black_and_white(self, image, name):
+
+    def load(self, image):
+        self.ids.big_image.source = image
+
+
+
+
+
+
+    def black_and_white(self, image):
         img = Image.open(image)
         pixels = img.load()
         for y in range(img.size[1]):
@@ -47,9 +56,12 @@ class Filters(Screen):
 
                 pixels[x, y] = (avg, avg, avg)
 
-        img.save(name + '_greyscale.png')
+        index = image.find(".")
+        img.save(image[:index] + "b&w.jpg")
+        # self.load(img)
+        self.ids.big_image.source = image[:index] + "b&w.jpg"
 
-    def invert(self, image, name):
+    def invert(self, image):
         img = Image.open(image)
         pixels = img.load()
         for y in range(img.size[1]):
@@ -58,9 +70,12 @@ class Filters(Screen):
                 green = 255 - pixels[x, y][1]
                 blue = 225 - pixels[x, y][2]
                 pixels[x, y] = (red, green, blue)
-        img.save(name + '_inverted.png')
+        index = image.find(".")
+        img.save(image[:index] + "invert.jpg")
+        # self.load(img)
+        self.ids.big_image.source = image[:index] + "invert.jpg"
 
-    def sepia(self, image, name):
+    def sepia(self, image):
         img = Image.open(image)
         pixels = img.load()
         for y in range(img.size[1]):
@@ -74,10 +89,12 @@ class Filters(Screen):
                 b1 = int(red * .272 + green * 0.534 + blue * 0.131)
 
                 pixels[x, y] = (r1, g1, b1)
+        index = image.find(".")
+        img.save(image[:index]+"sepia.jpg")
+        # self.load(img)
+        self.ids.big_image.source = image[:index]+"sepia.jpg"
 
-        img.save(name + '_sepia.png')
-
-    def pixelate(self, image, name, startx, starty, width, height):
+    def pixelate(self, image, startx, starty, width, height):
         img = Image.open(image)
         pixels = img.load()
 
@@ -89,9 +106,12 @@ class Filters(Screen):
                     for i in range(x, x + 40):
                         pixels[i, j] = color
 
-        img.save(name + '_pixelated.png')
+        index = image.find(".")
+        img.save(image[:index] + "pixelated.jpg")
+        # self.load(img)
+        self.ids.big_image.source = image[:index] + "pixelated.jpg"
 
-    def pointillism(self, image, name):
+    def pointillism(self, image):
         img = Image.open(image)
         pixels = img.load()
         canvas = Image.new("RGB", (img.size[0], img.size[1]), "white")
@@ -99,19 +119,21 @@ class Filters(Screen):
         for i in range(300000):
             x = random.randint(0, img.size[0] - 1)
             y = random.randint(0, img.size[1] - 1)
-            size = random.randint(6, 9)
+            size = random.randint(6, 8)
             ellipsebox = [(x, y), (x + size, y + size)]
             draw = ImageDraw.Draw(canvas)
             draw.ellipse(ellipsebox, fill=(pixels[x, y][0], pixels[x, y][1], pixels[x, y][2]))
             del draw
 
-        canvas.save(name + '_points.png')
-
+        index = image.find(".")
+        canvas.save(image[:index] + "points.jpg")
+        # self.load(img)
+        self.ids.big_image.source = image[:index] + "points.jpg"
     def lines_helper(self, pixel):
         avg = (pixel[0] + pixel[1] + pixel[2]) // 3
         return avg
 
-    def lines(self, image, name):
+    def lines(self, image):
         img = Image.open(image)
         pixels = img.load()
         canvas = Image.new("RGB", (img.size[0], img.size[1]), "white")
@@ -128,7 +150,10 @@ class Filters(Screen):
                     draw.ellipse(ellipsebox, fill=(0, 0, 0))
                     del draw
 
-        canvas.save(name + '_lines.png')
+        index = image.find(".")
+        canvas.save(image[:index] + "lines.jpg")
+        # self.load(img)
+        self.ids.big_image.source = image[:index] + "lines.jpg"
 
 
 images = ['erosionbird.jfif', 'smurfcat.jfif']
